@@ -1,8 +1,5 @@
 language: php
 
-php:
-  - '7.0'
-
 services:
   - mongodb
 
@@ -11,6 +8,9 @@ matrix:
   include:
     - php: '7.0'
     - php: '7.0'
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: '7.1'
+    - php: '7.1'
       env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:
