@@ -1,0 +1,37 @@
+language: php
+
+php:
+  - '7.0'
+
+services:
+  - mongodb
+
+matrix:
+  fast_finish: true
+  include:
+    - php: '7.0'
+    - php: '7.0'
+      env: COMPOSER_FLAGS="--prefer-lowest"
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer self-update
+  - composer config --quiet --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
+
+install:
+  - mkdir --parents "${HOME}/bin"
+  - composer update --prefer-dist --prefer-stable --no-interaction ${COMPOSER_FLAGS}
+
+before_script:
+  - echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+script:
+  - bin/phpunit -c ./phpunit.xml --coverage-clover=./build/coverage/coverage.clover
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular" && chmod +x "${HOME}/bin/ocular"
+  - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
+
+notifications:
+  on_success: never
+  on_failure: always
