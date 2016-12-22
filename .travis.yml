@@ -20,6 +20,7 @@ before_install:
 
 install:
   - mkdir --parents "${HOME}/bin"
+  - echo "extension=mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer update --prefer-dist --prefer-stable --no-interaction ${COMPOSER_FLAGS}
 
 before_script:
