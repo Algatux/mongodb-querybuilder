@@ -8,14 +8,14 @@ namespace Algatux\QueryBuilder;
 class Expression
 {
     /** @var array */
-    private $queryPartial;
+    private $filters;
 
     /**
      * Expression constructor.
      */
     public function __construct()
     {
-        $this->queryPartial = [];
+        $this->filters = [];
     }
 
     /**
@@ -27,8 +27,8 @@ class Expression
     {
         $this->prepareOperator('$and');
 
-        $this->queryPartial['$and'] = array_merge(
-            $this->queryPartial['$and'],
+        $this->filters['$and'] = array_merge(
+            $this->filters['$and'],
             $this->mapExpressions(...func_get_args())
         );
 
@@ -44,8 +44,8 @@ class Expression
     {
         $this->prepareOperator('$or');
 
-        $this->queryPartial['$or'] = array_merge(
-            $this->queryPartial['$or'],
+        $this->filters['$or'] = array_merge(
+            $this->filters['$or'],
             $this->mapExpressions(...func_get_args())
         );
 
@@ -55,9 +55,9 @@ class Expression
     /**
      * @return array
      */
-    public function getQueryPartial(): array
+    public function getExpressionFilters(): array
     {
-        return $this->queryPartial;
+        return $this->filters;
     }
 
     /**
@@ -65,8 +65,8 @@ class Expression
      */
     private function prepareOperator(string $operator)
     {
-        if (!isset($this->queryPartial[$operator])) {
-            $this->queryPartial[$operator] = [];
+        if (!isset($this->filters[$operator])) {
+            $this->filters[$operator] = [];
         }
     }
 
@@ -79,7 +79,7 @@ class Expression
     {
         return array_map(
             function ($expression) {
-                return $expression instanceof Expression ? $expression->getQueryPartial() : $expression;
+                return $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
             },
             func_get_args()
         );

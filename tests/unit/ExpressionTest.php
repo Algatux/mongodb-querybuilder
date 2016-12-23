@@ -17,7 +17,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
                     [ "testField" => 10 ]
                 ]
             ],
-            $exp->getQueryPartial()
+            $exp->getExpressionFilters()
         );
     }
 
@@ -36,7 +36,7 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
                     [ "testField3" => 3 ],
                 ]
             ],
-            $exp->getQueryPartial()
+            $exp->getExpressionFilters()
         );
     }
 
