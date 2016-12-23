@@ -29,12 +29,7 @@ class Expression
 
         $this->queryPartial['$and'] = array_merge(
             $this->queryPartial['$and'],
-            array_map(
-                function ($expression) {
-                    return $expression instanceof Expression ? $expression->getQueryPartial() : $expression;
-                },
-                func_get_args()
-            )
+            $this->mapExpressions(...func_get_args())
         );
 
         return $this;
@@ -51,12 +46,7 @@ class Expression
 
         $this->queryPartial['$or'] = array_merge(
             $this->queryPartial['$or'],
-            array_map(
-                function ($expression) {
-                    return $expression instanceof Expression ? $expression->getQueryPartial() : $expression;
-                },
-                func_get_args()
-            )
+            $this->mapExpressions(...func_get_args())
         );
 
         return $this;
@@ -78,5 +68,20 @@ class Expression
         if (!isset($this->queryPartial[$operator])) {
             $this->queryPartial[$operator] = [];
         }
+    }
+
+    /**
+     * @param $expressions
+     *
+     * @return array
+     */
+    private function mapExpressions($expressions): array
+    {
+        return array_map(
+            function ($expression) {
+                return $expression instanceof Expression ? $expression->getQueryPartial() : $expression;
+            },
+            func_get_args()
+        );
     }
 }
