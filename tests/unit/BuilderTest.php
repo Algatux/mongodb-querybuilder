@@ -113,4 +113,28 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             $builder->getQuery()->getFilters()
         );
     }
+
+    public function test_sort()
+    {
+        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+
+        $builder->sort(['sortField' => -1]);
+
+        $this->assertEquals(
+            ['sort' => ['sortField' => -1]],
+            $builder->getQuery()->getOptions()
+        );
+    }
+
+    public function test_limit()
+    {
+        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+
+        $builder->setMaxResults(10);
+
+        $this->assertEquals(
+            ['limit' => 10],
+            $builder->getQuery()->getOptions()
+        );
+    }
 }

@@ -52,7 +52,7 @@ class Query
      *
      * @throws \Exception
      */
-    protected function execute()
+    public function execute()
     {
         switch($this->type) {
             case self::TYPE_FIND:
