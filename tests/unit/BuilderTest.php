@@ -3,6 +3,7 @@
 namespace Algatux\Tests\QueryBuilder\unit;
 
 use Algatux\QueryBuilder\Builder;
+use Algatux\QueryBuilder\Query;
 use MongoDB\Collection;
 
 class BuilderTest extends \PHPUnit_Framework_TestCase
@@ -11,7 +12,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new Builder($this->prophesize(Collection::class)->reveal());
 
-        $builder->and(['testField' => 10]);
+        $builder
+            ->count()
+            ->and(['testField' => 10]);
 
         $this->assertEquals(
             [
@@ -21,14 +24,17 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ],
             $builder->getQuery()->getFilters()
         );
+        $this->assertEquals(Query::TYPE_COUNT, $builder->getQueryType());
     }
 
     public function test_and_multiple_array()
     {
         $builder = new Builder($this->prophesize(Collection::class)->reveal());
 
-        $builder->and(['testField1' => 1]);
-        $builder->and(['testField2' => 2]);
+        $builder
+            ->find()
+            ->and(['testField1' => 1])
+            ->and(['testField2' => 2]);
 
         $this->assertEquals(
             [
@@ -39,6 +45,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ],
             $builder->getQuery()->getFilters()
         );
+        $this->assertEquals(Query::TYPE_FIND, $builder->getQueryType());
     }
 
     public function test_and_multiple_array_single_call()
@@ -134,6 +141,18 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             ['limit' => 10],
+            $builder->getQuery()->getOptions()
+        );
+    }
+
+    public function test_projection()
+    {
+        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+
+        $builder->select('_id', 'field1');
+
+        $this->assertEquals(
+            ['projection' => ['_id' => 1, 'field1' => 1]],
             $builder->getQuery()->getOptions()
         );
     }
