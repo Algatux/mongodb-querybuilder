@@ -10,7 +10,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function test_and_array()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder
             ->count()
@@ -29,7 +29,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_and_multiple_array()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder
             ->find()
@@ -50,7 +50,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_and_multiple_array_single_call()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->and(['testField1' => 1],['testField2' => 2]);
 
@@ -67,7 +67,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_expressions_concatenation_and()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->and(
             $builder->expr()->or(
@@ -95,7 +95,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_expressions_concatenation_or()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->or(
             $builder->expr()->and(
@@ -123,7 +123,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_sort()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->sort(['sortField' => -1]);
 
@@ -135,7 +135,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_limit()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->setMaxResults(10);
 
@@ -147,7 +147,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function test_projection()
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = $this->getBuilder();
 
         $builder->select('_id', 'field1');
 
@@ -155,5 +155,15 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ['projection' => ['_id' => 1, 'field1' => 1]],
             $builder->getQuery()->getOptions()
         );
+    }
+
+    /**
+     * @return Builder
+     */
+    private function getBuilder(): Builder
+    {
+        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+
+        return $builder;
     }
 }
