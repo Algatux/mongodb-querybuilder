@@ -11,6 +11,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $qb = new Query($this->prophesize(Collection::class)->reveal());
 
-        $this->assertEquals([], $qb->getQuery());
+        $this->assertEquals([], $qb->getFilters());
     }
 }

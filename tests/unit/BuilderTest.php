@@ -19,7 +19,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                     [ "testField" => 10 ]
                 ]
             ],
-            $builder->getQueryFilters()
+            $builder->getQuery()->getFilters()
         );
     }
 
@@ -37,7 +37,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                     [ "testField2" => 2 ],
                 ]
             ],
-            $builder->getQueryFilters()
+            $builder->getQuery()->getFilters()
         );
     }
 
@@ -54,7 +54,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                     [ "testField2" => 2 ],
                 ]
             ],
-            $builder->getQueryFilters()
+            $builder->getQuery()->getFilters()
         );
     }
 
@@ -82,7 +82,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                     ['testField3' => 3]
                 ]
             ],
-            $builder->getQueryFilters()
+            $builder->getQuery()->getFilters()
         );
     }
 
@@ -110,7 +110,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                     ['testField3' => 3]
                 ]
             ],
-            $builder->getQueryFilters()
+            $builder->getQuery()->getFilters()
         );
     }
 }

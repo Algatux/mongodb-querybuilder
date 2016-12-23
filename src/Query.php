@@ -3,6 +3,7 @@
 namespace Algatux\QueryBuilder;
 
 use MongoDB\Collection;
+use MongoDB\Driver\Cursor;
 
 /**
  * Class Query
@@ -24,7 +25,7 @@ class Query
     /** @var Collection */
     private $collection;
     /** @var array  */
-    private $query;
+    private $filters;
     /** @var array  */
     private $options;
     /** @var int */
@@ -34,15 +35,16 @@ class Query
      * Query constructor.
      *
      * @param Collection $collection
-     * @param array      $query
+     * @param int        $type
+     * @param array      $filters
      * @param array      $options
      */
-    public function __construct(Collection $collection, array $query = [], array $options = [])
+    public function __construct(Collection $collection, int $type=self::TYPE_FIND, array $filters=[], array $options=[])
     {
         $this->collection = $collection;
-        $this->query = $query;
+        $this->filters = $filters;
         $this->options = $options;
-        $this->type = $query['type'] ?? self::TYPE_FIND;
+        $this->type = $type;
     }
 
     /**
@@ -50,11 +52,14 @@ class Query
      *
      * @throws \Exception
      */
-    public function execute()
+    protected function execute()
     {
         switch($this->type) {
             case self::TYPE_FIND:
-                    return $this->collection->find($this->query, $this->options);
+                    return $this->collection->find($this->filters, $this->options);
+                break;
+            case self::TYPE_COUNT:
+                    return $this->collection->count($this->filters, $this->options);
                 break;
             default:
                 throw new \Exception('Unsupported query type ... I\'m sorry');
@@ -64,9 +69,9 @@ class Query
     /**
      * @return array
      */
-    public function getQuery(): array
+    public function getFilters(): array
     {
-        return $this->query;
+        return $this->filters;
     }
 
     /**

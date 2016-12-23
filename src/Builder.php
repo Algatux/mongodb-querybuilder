@@ -9,13 +9,12 @@ use MongoDB\Collection;
  */
 class Builder
 {
-    const COND_TYPE_AND = 1;
-    const COND_TYPE_OR = 1;
-
     /** @var Collection */
     private $collection;
     /** @var Expression  */
     private $expression;
+    /** @var array */
+    private $options;
 
     /**
      * Builder constructor.
@@ -25,7 +24,37 @@ class Builder
     public function __construct(Collection $collection)
     {
         $this->collection = $collection;
+        $this->queryType = Query::TYPE_FIND;
         $this->expression = new Expression();
+        $this->options = [];
+    }
+
+    /**
+     * @return $this
+     */
+    public function find()
+    {
+        return $this->setType(Query::TYPE_FIND);
+    }
+
+    /**
+     * @return $this
+     */
+    public function count()
+    {
+        return $this->setType(Query::TYPE_COUNT);
+    }
+
+    /**
+     * @param int $type
+     *
+     * @return $this
+     */
+    protected function setType(int $type)
+    {
+        $this->queryType = $type;
+
+        return $this;
     }
 
     /**
@@ -53,11 +82,40 @@ class Builder
     }
 
     /**
-     * @return array
+     * @return Query
      */
-    public function getQueryFilters(): array
+    public function getQuery(): Query
     {
-        return $this->expression->getQueryPartial();
+        return new Query(
+            $this->collection,
+            $this->queryType,
+            $this->expression->getExpressionFilters(),
+            $this->options
+        );
+    }
+
+    /**
+     * @param array $fields
+     */
+    public function sort(array $fields)
+    {
+        $this->options['sort'] = $fields;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setMaxResults(int $limit)
+    {
+        $this->options['limit'] = $limit;
+    }
+
+    /**
+     * @param array $projection
+     */
+    public function select(array $projection)
+    {
+        $this->options['projection'] = $projection;
     }
 
     /**
