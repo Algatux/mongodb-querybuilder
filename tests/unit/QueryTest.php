@@ -7,6 +7,15 @@ use MongoDB\Collection;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
+    public function test_query_unsupported()
+    {
+        $coll = $this->prophesize(Collection::class);
+
+        $qb = new Query($coll->reveal(), 999);
+        $this->expectException(\Exception::class);
+        $qb->execute();
+    }
+
     public function test_query_find_execution()
     {
         $coll = $this->prophesize(Collection::class);

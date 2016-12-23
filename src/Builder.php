@@ -95,6 +95,14 @@ class Builder
     }
 
     /**
+     * @return int
+     */
+    public function getQueryType(): int
+    {
+        return $this->queryType;
+    }
+
+    /**
      * @param array $fields
      */
     public function sort(array $fields)
@@ -113,9 +121,9 @@ class Builder
     /**
      * @param array $projection
      */
-    public function select(array $projection)
+    public function select(...$projection)
     {
-        $this->options['projection'] = $projection;
+        $this->options['projection'] = array_fill_keys($projection, 1);
     }
 
     /**
