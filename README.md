@@ -20,7 +20,7 @@ $builder = new Builder($mongodbCollection);
 
 /** \MongoDB\Driver\Cursor */
 $cursor = $builder
-    ->find()
+    ->select('_id', 'field1')
     ->and(
         $builder->expr()->or(
             ['field1' => 'value1'],
@@ -28,6 +28,9 @@ $cursor = $builder
         ),
         ['field3' => 'value3']
     )
+    ->sort(['field1' => -1])
+    ->setMaxResults(10)
+    ->find()
     ->getQuery()
     ->execute();
 ```
