@@ -145,6 +145,18 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_skip()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->skip(10);
+
+        $this->assertEquals(
+            ['skip' => 10],
+            $builder->getQuery()->getOptions()
+        );
+    }
+
     public function test_projection()
     {
         $builder = $this->getBuilder();
