@@ -10,7 +10,7 @@ A query builder for mongodb
 require this library through composer:
 
 ```bash
-composer require algatux/mongodb-querybuilder
+composer require algatux/mongodb-querybuilder dev-master
 ```
 
 ##Usage example
