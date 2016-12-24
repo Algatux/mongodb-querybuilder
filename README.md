@@ -20,7 +20,7 @@ composer require algatux/mongodb-querybuilder:dev-master
 /** @var \MongoDB\Collection $mongodbCollection */
 $builder = new Builder($mongodbCollection);
 
-/** @var */ \MongoDB\Driver\Cursor $cursor */
+/** @var \MongoDB\Driver\Cursor $cursor */
 $cursor = $builder
     ->select('_id', 'field1') // projection
     ->and(
