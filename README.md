@@ -17,9 +17,10 @@ composer require algatux/mongodb-querybuilder:dev-master
 ##Usage example
 
 ```php
+/** @var \MongoDB\Collection $mongodbCollection */
 $builder = new Builder($mongodbCollection);
 
-/** \MongoDB\Driver\Cursor */
+/** @var */ \MongoDB\Driver\Cursor $cursor */
 $cursor = $builder
     ->select('_id', 'field1') // projection
     ->and(
