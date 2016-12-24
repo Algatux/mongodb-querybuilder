@@ -15,6 +15,8 @@ class Builder
     private $expression;
     /** @var array */
     private $options;
+    /** @var int */
+    private $queryType;
 
     /**
      * Builder constructor.
