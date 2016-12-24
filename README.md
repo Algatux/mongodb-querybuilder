@@ -20,17 +20,19 @@ $builder = new Builder($mongodbCollection);
 
 /** \MongoDB\Driver\Cursor */
 $cursor = $builder
-    ->select('_id', 'field1')
+    ->select('_id', 'field1') // projection
     ->and(
-        $builder->expr()->or(
+        $builder->expr()->or( // $or
             ['field1' => 'value1'],
             ['field2' => 'value2'],
         ),
         ['field3' => 'value3']
-    )
-    ->sort(['field1' => -1])
-    ->limit(10)
-    ->find()
+    ) // $and
+    ->sort(['field1' => -1]) // sort option
+    ->limit(10) // limit option
+    ->skip(2) // skip option
+    ->setQueryOption('foo', $bar) // adds not actually method supported options
+    ->find() // will trigger $collection->find() method
     ->getQuery()
     ->execute();
 ```
