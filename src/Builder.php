@@ -104,26 +104,61 @@ class Builder
 
     /**
      * @param array $fields
+     *
+     * @return $this
      */
     public function sort(array $fields)
     {
-        $this->options['sort'] = $fields;
+        return $this->setQueryOption('sort', $fields);
     }
 
     /**
      * @param int $limit
+     *
+     * @return $this
      */
-    public function setMaxResults(int $limit)
+    public function limit(int $limit)
     {
-        $this->options['limit'] = $limit;
+        return $this->setQueryOption('limit', $limit);
+    }
+
+    /**
+     * @param int $skip
+     *
+     * @return $this
+     */
+    public function skip(int $skip)
+    {
+        return $this->setQueryOption('skip', $skip);
     }
 
     /**
      * @param array $projection
+     *
+     * @return $this
      */
     public function select(...$projection)
     {
-        $this->options['projection'] = array_fill_keys($projection, 1);
+        $this->setQueryOption('projection', array_fill_keys($projection, 1));
+
+        if (!in_array('_id', $projection)) {
+            $this->options['projection']['_id'] = -1;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $option
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function setQueryOption(string $option, $value)
+    {
+        $this->options[$option] = $value;
+
+        return $this;
     }
 
     /**

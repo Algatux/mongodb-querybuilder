@@ -137,7 +137,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $builder = $this->getBuilder();
 
-        $builder->setMaxResults(10);
+        $builder->limit(10);
 
         $this->assertEquals(
             ['limit' => 10],
@@ -153,6 +153,25 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             ['projection' => ['_id' => 1, 'field1' => 1]],
+            $builder->getQuery()->getOptions()
+        );
+
+        $builder->select('field1');
+
+        $this->assertEquals(
+            ['projection' => ['field1' => 1,'_id' => -1 ]],
+            $builder->getQuery()->getOptions()
+        );
+    }
+
+    public function test_set_query_option()
+    {
+        $builder = $this->getBuilder();
+
+        $builder->setQueryOption('testOption', 'test_value');
+
+        $this->assertEquals(
+            ['testOption' => 'test_value'],
             $builder->getQuery()->getOptions()
         );
     }
