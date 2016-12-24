@@ -16,7 +16,7 @@
         "psr-4": { "Algatux\\Tests\\QueryBuilder\\": "tests/" }
     },
     "require": {
-        "php" : "^5.6 | ^7.0",
+        "php" : "^7.0",
         "ext-mongodb": "^1.1.0",
         "mongodb/mongodb": "^1.0"
     },
