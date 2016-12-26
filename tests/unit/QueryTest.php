@@ -24,7 +24,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $qb = new Query($coll->reveal());
         $qb->execute();
 
-        $this->assertEquals([], $qb->getFilters());
+        $this->assertEquals([], $qb->getQuerySettings());
         $this->assertEquals([], $qb->getOptions());
     }
 
@@ -36,7 +36,19 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $qb = new Query($coll->reveal(), Query::TYPE_COUNT, ['filter'=>1], ['option' => 1]);
         $qb->execute();
 
-        $this->assertEquals(['filter'=>1], $qb->getFilters());
+        $this->assertEquals(['filter'=>1], $qb->getQuerySettings());
+        $this->assertEquals(['option' => 1], $qb->getOptions());
+    }
+
+    public function test_query_aggregate_execution()
+    {
+        $coll = $this->prophesize(Collection::class);
+        $coll->aggregate(['filter'=>1],['option' => 1])->shouldBeCalledTimes(1);
+
+        $qb = new Query($coll->reveal(), Query::TYPE_AGGREGATE, ['filter'=>1], ['option' => 1]);
+        $qb->execute();
+
+        $this->assertEquals(['filter'=>1], $qb->getQuerySettings());
         $this->assertEquals(['option' => 1], $qb->getOptions());
     }
 }
