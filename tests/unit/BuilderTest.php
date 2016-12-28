@@ -121,6 +121,23 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_notEqual()
+    {
+        $builder = $this->getBuilder();
+        $builder->notEqual('testField', 10);
+        $builder->notEqual('testField', 11);
+
+        $this->assertEquals(
+            [
+                'testField' => [
+                    ['$ne' => 10],
+                    ['$ne' => 11],
+                ]
+            ],
+            $builder->getQuery()->getQuerySettings()
+        );
+    }
+
     public function test_sort()
     {
         $builder = $this->getBuilder();
