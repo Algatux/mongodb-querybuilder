@@ -25,7 +25,7 @@ class Expression
      */
     public function and($expression)
     {
-        $this->prepareOperator('$and');
+        $this->prepareFilterIndex('$and');
 
         $this->filters['$and'] = array_merge(
             $this->filters['$and'],
@@ -42,7 +42,7 @@ class Expression
      */
     public function or($expression)
     {
-        $this->prepareOperator('$or');
+        $this->prepareFilterIndex('$or');
 
         $this->filters['$or'] = array_merge(
             $this->filters['$or'],
@@ -50,6 +50,20 @@ class Expression
         );
 
         return $this;
+    }
+
+    /**
+     * @param string           $field
+     * @param Expression[]|array $expressions
+     */
+    public function notEqual(string $field, ...$expressions)
+    {
+        $this->prepareFilterIndex($field);
+
+        $this->filters[$field] = array_merge(
+            $this->filters[$field],
+            $this->operationExpressions('$ne', $expressions)
+        );
     }
 
     /**
@@ -63,7 +77,7 @@ class Expression
     /**
      * @param string $operator
      */
-    private function prepareOperator(string $operator)
+    private function prepareFilterIndex(string $operator)
     {
         if (!isset($this->filters[$operator])) {
             $this->filters[$operator] = [];
@@ -71,7 +85,7 @@ class Expression
     }
 
     /**
-     * @param $expressions
+     * @param  $expressions
      *
      * @return array
      */
@@ -79,9 +93,27 @@ class Expression
     {
         return array_map(
             function ($expression) {
-                return $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
+                return  $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
             },
             func_get_args()
+        );
+    }
+
+    /**
+     * @param string $operation
+     * @param array  $expressions
+     *
+     * @return array
+     */
+    private function operationExpressions(string $operation, array $expressions): array
+    {
+        return array_map(
+            function ($expression) use ($operation) {
+                $filter = $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
+
+                return [$operation => $filter];
+            },
+            $expressions
         );
     }
 }
