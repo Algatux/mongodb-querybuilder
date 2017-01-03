@@ -40,6 +40,19 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_equal()
+    {
+        $exp = new Expression();
+        $exp->equal('testF', 10);
+
+        $this->assertEquals(
+            [
+                'testF' => ['$eq' => 10],
+            ],
+            $exp->getExpressionFilters()
+        );
+    }
+
     public function test_notEqual()
     {
         $exp = new Expression();
