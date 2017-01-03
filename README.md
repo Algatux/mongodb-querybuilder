@@ -2,6 +2,7 @@
 A query builder for mongodb
 
 [![PHP Version](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)](https://img.shields.io/badge/PHP-%5E7.0-blue.svg)
+[![MongoDB Version](https://img.shields.io/badge/MongoDB-%5E3.0-blue.svg)](https://img.shields.io/badge/MongoDB-%5E3.0-blue.svg)
 [![Build Status](https://travis-ci.org/Algatux/mongodb-querybuilder.svg?branch=master)](https://travis-ci.org/Algatux/mongodb-querybuilder)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/?branch=master)
