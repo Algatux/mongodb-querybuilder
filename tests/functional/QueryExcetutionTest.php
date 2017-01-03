@@ -40,6 +40,20 @@ class QueryExcetutionTest extends TestCase
         $this->assertEquals('James', $res[1]->name);
     }
 
+    public function test_equal()
+    {
+        $builder = $this->getQueryBuilder();
+
+        $res = $builder->equal('name', 'John')
+            ->find()
+            ->getQuery()
+            ->execute()
+            ->toArray();
+
+        $this->assertCount(1, $res);
+        $this->assertEquals('John', $res[0]->name);
+    }
+
     public function test_notEqual()
     {
         $builder = $this->getQueryBuilder();
@@ -53,20 +67,6 @@ class QueryExcetutionTest extends TestCase
         $this->assertCount(2, $res);
         $this->assertEquals('Alessandro', $res[0]->name);
         $this->assertEquals('James', $res[1]->name);
-    }
-
-    public function test_equal()
-    {
-        $builder = $this->getQueryBuilder();
-
-        $res = $builder->equal('name', 'John')
-            ->find()
-            ->getQuery()
-            ->execute()
-            ->toArray();
-
-        $this->assertCount(1, $res);
-        $this->assertEquals('John', $res[0]->name);
     }
 
     public function test_notEqual_in_and()

@@ -23,7 +23,7 @@ class Expression
      *
      * @return $this
      */
-    public function and($expression)
+    public function and ($expression)
     {
         $this->prepareFilterIndex('$and');
 
@@ -33,61 +33,6 @@ class Expression
         );
 
         return $this;
-    }
-
-    /**
-     * @param array|Expression $expression
-     *
-     * @return $this
-     */
-    public function or($expression)
-    {
-        $this->prepareFilterIndex('$or');
-
-        $this->filters['$or'] = array_merge(
-            $this->filters['$or'],
-            $this->mapExpressions(...func_get_args())
-        );
-
-        return $this;
-    }
-
-    /**
-     * @param string     $field
-     * @param string|Expression $expression
-     *
-     * @return $this
-     */
-    public function equal(string $field, $expression)
-    {
-        $this->prepareFilterIndex($field);
-
-        $this->filters[$field] = $this->operationExpression('$eq', $expression);
-
-        return $this;
-    }
-
-    /**
-     * @param string     $field
-     * @param string|Expression $expression
-     *
-     * @return $this
-     */
-    public function notEqual(string $field, $expression)
-    {
-        $this->prepareFilterIndex($field);
-
-        $this->filters[$field] = $this->operationExpression('$ne', $expression);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getExpressionFilters(): array
-    {
-        return $this->filters;
     }
 
     /**
@@ -109,22 +54,75 @@ class Expression
     {
         return array_map(
             function ($expression) {
-                return  $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
+                return $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
             },
             func_get_args()
         );
     }
 
     /**
+     * @return array
+     */
+    public function getExpressionFilters(): array
+    {
+        return $this->filters;
+    }
+
+    /**
+     * @param array|Expression $expression
+     *
+     * @return $this
+     */
+    public function or ($expression)
+    {
+        $this->prepareFilterIndex('$or');
+
+        $this->filters['$or'] = array_merge(
+            $this->filters['$or'],
+            $this->mapExpressions(...func_get_args())
+        );
+
+        return $this;
+    }
+
+    /**
+     * @param string $field
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function equal(string $field, $value)
+    {
+        $this->prepareFilterIndex($field);
+
+        $this->filters[$field] = $this->operationExpression('$eq', $value);
+
+        return $this;
+    }
+
+    /**
      * @param string $operation
-     * @param string|Expression  $expression
+     * @param mixed  $value
      *
      * @return array
      */
-    private function operationExpression(string $operation, $expression): array
+    private function operationExpression(string $operation, $value): array
     {
-        $filter = $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
+        return [$operation => $value];
+    }
 
-        return [$operation => $filter];
+    /**
+     * @param string $field
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function notEqual(string $field, $value)
+    {
+        $this->prepareFilterIndex($field);
+
+        $this->filters[$field] = $this->operationExpression('$ne', $value);
+
+        return $this;
     }
 }
