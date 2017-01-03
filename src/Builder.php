@@ -83,16 +83,28 @@ class Builder
         return $this;
     }
 
-    public function equal(string $field, $expression)
+    /**
+     * @param string $field
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function equal(string $field, $value)
     {
-        $this->expression->equal($field, $expression);
+        $this->expression->equal($field, $value);
 
         return $this;
     }
 
-    public function notEqual(string $field, $expression)
+    /**
+     * @param string $field
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function notEqual(string $field, $value)
     {
-        $this->expression->notEqual($field, $expression);
+        $this->expression->notEqual($field, $value);
 
         return $this;
     }

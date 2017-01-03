@@ -44,14 +44,10 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
     {
         $exp = new Expression();
         $exp->notEqual('testF', 10);
-        $exp->notEqual('testF', 11);
 
         $this->assertEquals(
             [
-                'testF' => [
-                    ['$ne' => 10],
-                    ['$ne' => 11],
-                ]
+                'testF' => ['$ne' => 10],
             ],
             $exp->getExpressionFilters()
         );

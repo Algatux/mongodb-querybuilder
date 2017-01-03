@@ -125,14 +125,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $builder = $this->getBuilder();
         $builder->notEqual('testField', 10);
-        $builder->notEqual('testField', 11);
 
         $this->assertEquals(
             [
-                'testField' => [
-                    ['$ne' => 10],
-                    ['$ne' => 11],
-                ]
+                'testField' => ['$ne' => 10],
             ],
             $builder->getQuery()->getQuerySettings()
         );
