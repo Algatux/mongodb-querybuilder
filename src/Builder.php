@@ -83,9 +83,16 @@ class Builder
         return $this;
     }
 
-    public function notEqual(string $field, ...$expressions)
+    public function equal(string $field, $expression)
     {
-        $this->expression->notEqual($field, ...$expressions);
+        $this->expression->equal($field, $expression);
+
+        return $this;
+    }
+
+    public function notEqual(string $field, $expression)
+    {
+        $this->expression->notEqual($field, $expression);
 
         return $this;
     }

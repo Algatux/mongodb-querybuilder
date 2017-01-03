@@ -53,17 +53,33 @@ class Expression
     }
 
     /**
-     * @param string           $field
-     * @param Expression[]|array $expressions
+     * @param string     $field
+     * @param string|Expression $expression
+     *
+     * @return $this
      */
-    public function notEqual(string $field, ...$expressions)
+    public function equal(string $field, $expression)
     {
         $this->prepareFilterIndex($field);
 
-        $this->filters[$field] = array_merge(
-            $this->filters[$field],
-            $this->operationExpressions('$ne', $expressions)
-        );
+        $this->filters[$field] = $this->operationExpression('$eq', $expression);
+
+        return $this;
+    }
+
+    /**
+     * @param string     $field
+     * @param string|Expression $expression
+     *
+     * @return $this
+     */
+    public function notEqual(string $field, $expression)
+    {
+        $this->prepareFilterIndex($field);
+
+        $this->filters[$field] = $this->operationExpression('$ne', $expression);
+
+        return $this;
     }
 
     /**
@@ -101,19 +117,14 @@ class Expression
 
     /**
      * @param string $operation
-     * @param array  $expressions
+     * @param string|Expression  $expression
      *
      * @return array
      */
-    private function operationExpressions(string $operation, array $expressions): array
+    private function operationExpression(string $operation, $expression): array
     {
-        return array_map(
-            function ($expression) use ($operation) {
-                $filter = $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
+        $filter = $expression instanceof Expression ? $expression->getExpressionFilters() : $expression;
 
-                return [$operation => $filter];
-            },
-            $expressions
-        );
+        return [$operation => $filter];
     }
 }
