@@ -7,6 +7,11 @@ A query builder for mongodb
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Algatux/mongodb-querybuilder/?branch=master)
 
+[![Latest Stable Version](https://poser.pugx.org/algatux/mongodb-querybuilder/v/stable)](https://packagist.org/packages/algatux/mongodb-querybuilder)
+[![Total Downloads](https://poser.pugx.org/algatux/mongodb-querybuilder/downloads)](https://packagist.org/packages/algatux/mongodb-querybuilder)
+[![Latest Unstable Version](https://poser.pugx.org/algatux/mongodb-querybuilder/v/unstable)](https://packagist.org/packages/algatux/mongodb-querybuilder)
+[![License](https://poser.pugx.org/algatux/mongodb-querybuilder/license)](https://packagist.org/packages/algatux/mongodb-querybuilder)
+
 ## Installation
 
 require this library through composer:
