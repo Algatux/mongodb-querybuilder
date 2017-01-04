@@ -34,6 +34,14 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return Collection
+     */
+    protected function getCollection(): Collection
+    {
+        return $this->collection;
+    }
+
+    /**
      * @return QueryBuilder
      */
     public function getQueryBuilder(): QueryBuilder

@@ -20,6 +20,13 @@ class QueryExcetutionTest extends TestCase
         $this->assertCount(1, $res);
         $this->assertEquals('Alessandro', $res[0]->name);
         $this->assertEquals(31, $res[0]->age);
+
+        $resStd = $this->getCollection()->find([
+            'name' => 'Alessandro',
+            'age' => 31
+        ])->toArray();
+
+        $this->assertEquals($resStd, $res);
     }
 
     public function test_or()
@@ -38,6 +45,15 @@ class QueryExcetutionTest extends TestCase
         $this->assertCount(2, $res);
         $this->assertEquals('John', $res[0]->name);
         $this->assertEquals('James', $res[1]->name);
+
+        $resStd = $this->getCollection()->find([
+            '$or' => [
+                ['name' => 'John'],
+                ['name' => 'James']
+            ]
+        ])->toArray();
+
+        $this->assertEquals($resStd, $res);
     }
 
     public function test_equal()
@@ -52,6 +68,12 @@ class QueryExcetutionTest extends TestCase
 
         $this->assertCount(1, $res);
         $this->assertEquals('John', $res[0]->name);
+
+        $resStd = $this->getCollection()->find([
+            'name' => 'John'
+        ])->toArray();
+
+        $this->assertEquals($resStd, $res);
     }
 
     public function test_notEqual()
@@ -67,6 +89,12 @@ class QueryExcetutionTest extends TestCase
         $this->assertCount(2, $res);
         $this->assertEquals('Alessandro', $res[0]->name);
         $this->assertEquals('James', $res[1]->name);
+
+        $resStd = $this->getCollection()->find([
+            'name' => ['$ne' => 'John']
+        ])->toArray();
+
+        $this->assertEquals($resStd, $res);
     }
 
     public function test_notEqual_in_and()
@@ -84,5 +112,14 @@ class QueryExcetutionTest extends TestCase
 
         $this->assertCount(1, $res);
         $this->assertEquals('James', $res[0]->name);
+
+        $resStd = $this->getCollection()->find([
+            '$and' => [
+                ['name' => ['$ne' => 'Alessandro']],
+                ['name' => ['$ne' => 'John']],
+            ]
+        ])->toArray();
+
+        $this->assertEquals($resStd, $res);
     }
 }
