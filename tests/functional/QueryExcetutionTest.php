@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\Tests\QueryBuilder\functional;
+namespace Algatux\MongoDB\Tests\QueryBuilder\functional;
 
 class QueryExcetutionTest extends TestCase
 {

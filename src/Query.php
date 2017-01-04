@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\QueryBuilder;
+namespace Algatux\MongoDB\QueryBuilder;
 
 use MongoDB\Collection;
 use MongoDB\Driver\Cursor;

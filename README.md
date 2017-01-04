@@ -19,7 +19,7 @@ composer require algatux/mongodb-querybuilder:dev-master
 
 ```php
 /** @var \MongoDB\Collection $mongodbCollection */
-$builder = new Builder($mongodbCollection);
+$builder = new QueryBuilder($mongodbCollection);
 
 /** @var \MongoDB\Driver\Cursor $cursor */
 $cursor = $builder

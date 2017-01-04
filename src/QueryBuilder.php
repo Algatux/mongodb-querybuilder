@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\QueryBuilder;
+namespace Algatux\MongoDB\QueryBuilder;
 
 use MongoDB\Collection;
 
 /**
- * Class Builder.
+ * Class QueryBuilder.
  */
-class Builder
+class QueryBuilder
 {
     /** @var Collection */
     private $collection;
@@ -19,7 +19,7 @@ class Builder
     private $queryType;
 
     /**
-     * Builder constructor.
+     * QueryBuilder constructor.
      *
      * @param Collection $collection
      */
