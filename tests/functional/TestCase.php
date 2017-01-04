@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\Tests\QueryBuilder\functional;
+namespace Algatux\MongoDB\Tests\QueryBuilder\functional;
 
-use Algatux\QueryBuilder\Builder;
+use Algatux\MongoDB\QueryBuilder\QueryBuilder;
 use MongoDB\Client;
 use MongoDB\Collection;
 use MongoDB\Database;
@@ -34,11 +34,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Builder
+     * @return QueryBuilder
      */
-    public function getQueryBuilder(): Builder
+    public function getQueryBuilder(): QueryBuilder
     {
-        return new Builder($this->collection);
+        return new QueryBuilder($this->collection);
     }
 
     protected function prepareFixtures()

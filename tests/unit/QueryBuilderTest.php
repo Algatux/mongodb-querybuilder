@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\Tests\QueryBuilder\unit;
+namespace Algatux\MongoDB\Tests\QueryBuilderunit;
 
-use Algatux\QueryBuilder\Builder;
-use Algatux\QueryBuilder\Query;
+use Algatux\MongoDB\QueryBuilder\QueryBuilder;
+use Algatux\MongoDB\QueryBuilder\Query;
 use MongoDB\Collection;
 
-class BuilderTest extends \PHPUnit_Framework_TestCase
+class QueryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function test_and_array()
     {
@@ -202,11 +202,11 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Builder
+     * @return QueryBuilder
      */
-    private function getBuilder(): Builder
+    private function getBuilder(): QueryBuilder
     {
-        $builder = new Builder($this->prophesize(Collection::class)->reveal());
+        $builder = new QueryBuilder($this->prophesize(Collection::class)->reveal());
 
         return $builder;
     }

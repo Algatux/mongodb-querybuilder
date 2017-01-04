@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\Tests\QueryBuilder\unit;
+namespace Algatux\MongoDB\Tests\QueryBuilderunit;
 
-use Algatux\QueryBuilder\Expression;
+use Algatux\MongoDB\QueryBuilder\Expression;
 
 class ExpressionTest extends \PHPUnit_Framework_TestCase
 {

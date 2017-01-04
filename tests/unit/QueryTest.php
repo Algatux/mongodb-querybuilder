@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace Algatux\Tests\QueryBuilder\unit;
+namespace Algatux\MongoDB\Tests\QueryBuilderunit;
 
-use Algatux\QueryBuilder\Query;
+use Algatux\MongoDB\QueryBuilder\Query;
 use MongoDB\Collection;
 
 class QueryTest extends \PHPUnit_Framework_TestCase

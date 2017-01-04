@@ -10,10 +10,10 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Algatux\\QueryBuilder\\": "src/" }
+        "psr-4": { "Algatux\\MongoDB\\QueryBuilder\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Algatux\\Tests\\QueryBuilder\\": "tests/" }
+        "psr-4": { "Algatux\\MongoDB\\Tests\\QueryBuilder\\": "tests/" }
     },
     "require": {
         "php" : "^7.0",
