@@ -66,4 +66,30 @@ class ExpressionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_in()
+    {
+        $exp = new Expression();
+        $exp->in('testF', [1,2,3]);
+
+        $this->assertEquals(
+            [
+                'testF' => ['$in' => [1,2,3]],
+            ],
+            $exp->getExpressionFilters()
+        );
+    }
+
+    public function test_nin()
+    {
+        $exp = new Expression();
+        $exp->notIn('testF', [1,2,3]);
+
+        $this->assertEquals(
+            [
+                'testF' => ['$nin' => [1,2,3]],
+            ],
+            $exp->getExpressionFilters()
+        );
+    }
+
 }

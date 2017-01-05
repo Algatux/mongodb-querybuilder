@@ -122,4 +122,42 @@ class QueryExcetutionTest extends TestCase
 
         $this->assertEquals($resStd, $res);
     }
+
+    public function test_in()
+    {
+        $builder = $this->getQueryBuilder();
+
+        $res = $builder->in('type', ['Developer'])
+            ->find()
+            ->getQuery()
+            ->execute()
+            ->toArray();
+
+        $this->assertCount(1, $res);
+        $this->assertEquals('Alessandro', $res[0]->name);
+
+        $resStd = $this->getCollection()->find(['type' => ['$in' => ['Developer']]])->toArray();
+
+        $this->assertEquals($resStd, $res);
+    }
+
+    public function test_notIn()
+    {
+        $builder = $this->getQueryBuilder();
+
+        $res = $builder->notIn('type', ['Developer'])
+            ->sort(['age' => 1])
+            ->find()
+            ->getQuery()
+            ->execute()
+            ->toArray();
+
+        $this->assertCount(2, $res);
+        $this->assertEquals('John', $res[0]->name);
+        $this->assertEquals('James', $res[1]->name);
+
+        $resStd = $this->getCollection()->find(['type' => ['$nin' => ['Developer']]], ['sort' => ['age'=>1]])->toArray();
+
+        $this->assertEquals($resStd, $res);
+    }
 }

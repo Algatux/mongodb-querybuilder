@@ -32,6 +32,8 @@ class QueryBuilder
     }
 
     /**
+     * Tells the query builder to execute a find
+     *
      * @return $this
      */
     public function find()
@@ -40,6 +42,8 @@ class QueryBuilder
     }
 
     /**
+     * Tells the query builder to execute a count
+     *
      * @return $this
      */
     public function count()
@@ -60,6 +64,8 @@ class QueryBuilder
     }
 
     /**
+     * Adds and filter
+     *
      * @param array|Expression $expression
      *
      * @return $this
@@ -72,6 +78,8 @@ class QueryBuilder
     }
 
     /**
+     * Adds or filter
+     *
      * @param array|Expression $expression
      *
      * @return $this
@@ -84,6 +92,8 @@ class QueryBuilder
     }
 
     /**
+     * Adds eq filter
+     *
      * @param string $field
      * @param mixed  $value
      *
@@ -97,6 +107,8 @@ class QueryBuilder
     }
 
     /**
+     * Adds ne filter
+     *
      * @param string $field
      * @param mixed  $value
      *
@@ -110,6 +122,38 @@ class QueryBuilder
     }
 
     /**
+     * Adds in filter
+     *
+     * @param string $field
+     * @param array  $values
+     *
+     * @return $this
+     */
+    public function in(string $field, array $values)
+    {
+        $this->expression->in($field, $values);
+
+        return $this;
+    }
+
+    /**
+     * Adds nin filter
+     *
+     * @param string $field
+     * @param array  $values
+     *
+     * @return $this
+     */
+    public function notIn(string $field, array $values)
+    {
+        $this->expression->notIn($field, $values);
+
+        return $this;
+    }
+
+    /**
+     * Returns a new Query set up with the builder configuration
+     *
      * @return Query
      */
     public function getQuery(): Query
@@ -123,6 +167,8 @@ class QueryBuilder
     }
 
     /**
+     * Returns the query type
+     *
      * @return int
      */
     public function getQueryType(): int
@@ -131,6 +177,8 @@ class QueryBuilder
     }
 
     /**
+     * Sets the sort option
+     *
      * @param array $fields
      *
      * @return $this
@@ -141,6 +189,8 @@ class QueryBuilder
     }
 
     /**
+     * Sets the limit option
+     *
      * @param int $limit
      *
      * @return $this
@@ -151,6 +201,8 @@ class QueryBuilder
     }
 
     /**
+     * Sets the skip(offset) option
+     *
      * @param int $skip
      *
      * @return $this
@@ -161,6 +213,8 @@ class QueryBuilder
     }
 
     /**
+     * Sets the projection option
+     *
      * @param array $projection
      *
      * @return $this
@@ -177,6 +231,9 @@ class QueryBuilder
     }
 
     /**
+     * Sets the an actually unsupported option
+     * @deprecated use the right method if supported
+     *
      * @param string $option
      * @param mixed  $value
      *
@@ -190,6 +247,8 @@ class QueryBuilder
     }
 
     /**
+     * Returns a new Expression
+     *
      * @return Expression
      */
     public function expr(): Expression
