@@ -122,6 +122,70 @@ class QueryBuilder
     }
 
     /**
+     * Adds gt filter
+     *
+     * @param string $field
+     * @param mixed $value
+     *
+     * @return $this
+     */
+
+    public function greaterThan(string $field, $value)
+    {
+        $this->expression->greaterThan($field,$value);
+
+        return $this;
+    }
+
+    /**
+     * Adds gte filter
+     *
+     * @param string $field
+     * @param mixed $value
+     *
+     * @return $this
+     */
+
+    public function greaterEqualThan(string $field, $value)
+    {
+        $this->expression->greaterEqualThan($field,$value);
+
+        return $this;
+    }
+
+    /**
+     * Adds lt filter
+     *
+     * @param string $field
+     * @param mixed $value
+     *
+     * @return $this
+     */
+
+    public function lowerThan(string $field, $value)
+    {
+        $this->expression->lowerThan($field,$value);
+
+        return $this;
+    }
+
+    /**
+     * Adds lte filter
+     *
+     * @param string $field
+     * @param mixed $value
+     *
+     * @return $this
+     */
+
+    public function lowerEqualThan(string $field, $value)
+    {
+        $this->expression->lowerEqualThan($field,$value);
+
+        return $this;
+    }
+
+    /**
      * Adds in filter
      *
      * @param string $field
